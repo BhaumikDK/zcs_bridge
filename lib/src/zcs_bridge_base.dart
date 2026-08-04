@@ -190,4 +190,30 @@ class ZcsBridge {
   Future<Map<String, dynamic>> openCashBox() {
     return ZcsBridgePlatform.instance.openCashBox();
   }
+
+  /// Activates the QR scanner and waits for a single scan.
+  ///
+  /// Returns a map with `success`, `message`, and `data` (the scanned
+  /// content, empty on failure). The scan times out after 10 seconds if
+  /// no QR code is detected. Call [stopQRScan] to cancel an active scan.
+  ///
+  /// Requires the device to be initialized first (call [initializeDevice]).
+  ///
+  /// Example:
+  /// ```dart
+  /// final plugin = ZcsBridge();
+  /// await plugin.initializeDevice();
+  /// final result = await plugin.scanQRCode();
+  /// if (result['success'] == true) {
+  ///   print('Scanned: ${result['data']}');
+  /// }
+  /// ```
+  Future<Map<String, dynamic>> scanQRCode() {
+    return ZcsBridgePlatform.instance.scanQRCode();
+  }
+
+  /// Powers off the QR scanner, cancelling any pending [scanQRCode] call.
+  Future<Map<String, dynamic>> stopQRScan() {
+    return ZcsBridgePlatform.instance.stopQRScan();
+  }
 }

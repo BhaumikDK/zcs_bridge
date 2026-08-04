@@ -1,4 +1,4 @@
-# zcs_sdk_plugin
+# zcs_bridge
 
 A Flutter plugin that provides a wrapper around the [ZCS SDK](https://www.szzcs.com/), allowing developers to interact with ZCS-compatible hardware devices from Flutter apps.
 
@@ -24,6 +24,7 @@ A Flutter plugin that provides a wrapper around the [ZCS SDK](https://www.szzcs.
 - Query device status
 - **Get device serial number** - retrieve unique device identifier
 - QR code scanning support
+- Print images/logos and open the cash drawer
 
 This plugin provides a powerful, flexible API for ZCS POS hardware integration in Flutter apps.
 
@@ -35,7 +36,7 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  zcs_sdk_plugin: ^<latest-version>
+  zcs_bridge: ^<latest-version>
 ```
 
 Then run:
@@ -63,9 +64,9 @@ flutter pub get
 ## 🚀 Quick Start
 
 ```dart
-import 'package:zcs_sdk_plugin/zcs_sdk_plugin.dart';
+import 'package:zcs_bridge/zcs_bridge.dart';
 
-final plugin = ZcsSdkPlugin();
+final plugin = ZcsBridge();
 
 // 1. Initialize device
 await plugin.initializeDevice();
@@ -132,7 +133,7 @@ The `printDynamic()` method can print any type of document. Simply provide a map
 The simplest way to print - just pass a raw text string:
 
 ```dart
-final plugin = ZcsSdkPlugin();
+final plugin = ZcsBridge();
 await plugin.initializeDevice();
 await plugin.openDevice();
 
@@ -145,6 +146,25 @@ This method:
 - Supports newline characters (`\n`) for multiple lines
 - Uses default font size (24) and left alignment
 - Perfect for simple printing needs
+
+### Scan a QR Code
+
+```dart
+final plugin = ZcsBridge();
+await plugin.initializeDevice();
+
+final result = await plugin.scanQRCode();
+if (result['success'] == true) {
+  print('Scanned: ${result['data']}');
+} else {
+  print('Scan failed: ${result['message']}');
+}
+
+// Cancel an in-progress scan, e.g. if the user navigates away
+await plugin.stopQRScan();
+```
+
+`scanQRCode()` powers on the scanner and waits for a single scan, timing out after 10 seconds if nothing is detected.
 
 #### Restaurant Receipt
 ```dart
@@ -215,12 +235,16 @@ For more examples and detailed documentation, see:
 |--------|-------------|
 | `initializeDevice()` | Initializes the printer device |
 | `openDevice()` | Opens a connection to the device |
-| `printDynamic(args, {bothCopies})` | **Universal method** - prints any document type |
+| `printDynamic(args, {bothCopies, pauseBetweenCopies})` | **Universal method** - prints any document type |
+| `printRawText(text)` | Prints a raw text string with no formatting |
+| `printImage(imageBytes, {align, width})` | Prints an image or logo from encoded image bytes |
+| `openCashBox()` | Opens the cash drawer attached to the printer |
 | `getDeviceStatus()` | Returns device status |
-| `getSerialNumber()` | **NEW** - Retrieves the unique device serial number |
+| `getDeviceInfo()` | Returns device info |
+| `getSerialNumber()` | Retrieves the unique device serial number |
+| `scanQRCode()` | Activates the scanner and waits for a single QR scan (10s timeout) |
+| `stopQRScan()` | Powers off the QR scanner, cancelling a pending scan |
 | `closeDevice()` | Closes the connection to the device |
-| `scanQRCode()` | Scans a QR code |
-| `stopQRScan()` | Stops QR scanning |
 
 ---
 

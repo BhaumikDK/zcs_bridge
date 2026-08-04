@@ -233,6 +233,30 @@ class MethodChannelZcsBridge extends ZcsBridgePlatform {
       throw SmartPosException('Failed to open cash drawer: ${e.message}');
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> scanQRCode() async {
+    try {
+      final Map<String, dynamic> result = Map<String, dynamic>.from(
+        await channel.invokeMethod('scanQRCode'),
+      );
+      return result;
+    } on PlatformException catch (e) {
+      throw SmartPosException('Failed to scan QR code: ${e.message}');
+    }
+  }
+
+  @override
+  Future<Map<String, dynamic>> stopQRScan() async {
+    try {
+      final Map<String, dynamic> result = Map<String, dynamic>.from(
+        await channel.invokeMethod('stopQRScan'),
+      );
+      return result;
+    } on PlatformException catch (e) {
+      throw SmartPosException('Failed to stop QR scan: ${e.message}');
+    }
+  }
 }
 
 class SmartPosException implements Exception {

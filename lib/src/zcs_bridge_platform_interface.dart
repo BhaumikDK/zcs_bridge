@@ -99,4 +99,14 @@ abstract class ZcsBridgePlatform extends PlatformInterface {
   Future<Map<String, dynamic>> openCashBox() {
     throw UnimplementedError('openCashBox() has not been implemented.');
   }
+
+  /// Activates the QR scanner and waits for a single scan (10s timeout).
+  Future<Map<String, dynamic>> scanQRCode() {
+    throw UnimplementedError('scanQRCode() has not been implemented.');
+  }
+
+  /// Powers off the QR scanner, cancelling any pending [scanQRCode] call.
+  Future<Map<String, dynamic>> stopQRScan() {
+    throw UnimplementedError('stopQRScan() has not been implemented.');
+  }
 }
