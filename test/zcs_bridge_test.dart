@@ -91,6 +91,16 @@ class MockZcsBridge
   }) {
     return Future.value({'success': true, 'message': 'Image printed'});
   }
+
+  @override
+  Future<Map<String, dynamic>> scanQRCode() {
+   return Future.value({'success': true, 'message': 'QR code scanned'});
+  }
+
+  @override
+  Future<Map<String, dynamic>> stopQRScan() {
+    return Future.value({'success': true, 'message': 'QR scan stopped'});
+  }
 }
 
 void main() {
