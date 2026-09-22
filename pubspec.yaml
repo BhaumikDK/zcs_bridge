@@ -1,6 +1,6 @@
 name: zcs_bridge
 description: A Flutter plugin for ZCS SDK integration. Provides universal dynamic printing for receipts, invoices, and documents with QR codes, dual copies, and configurable layouts. Includes printRawText for simple text printing and device serial number retrieval.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/BhaumikDK/zcs_bridge.git
 repository: https://github.com/BhaumikDK/zcs_bridge
 issue_tracker: https://github.com/BhaumikDK/zcs_bridge/issues
