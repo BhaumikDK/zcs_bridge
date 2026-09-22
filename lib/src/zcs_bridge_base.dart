@@ -1,7 +1,4 @@
-library zcs_bridge;
-
 import 'dart:typed_data';
-
 import 'zcs_bridge_platform_interface.dart';
 
 /// ZCS SDK Plugin - Main entry point
