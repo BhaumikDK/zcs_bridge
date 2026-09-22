@@ -1,3 +1,9 @@
+## 0.0.2
+
+This version includes:
+
+- Update the internal files and license
+
 ## 0.0.1
 
 * Initial release with basic printing functionality
